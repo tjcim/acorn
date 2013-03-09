@@ -10,16 +10,16 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
         <style>
             body {
                 padding-top: 60px;
                 padding-bottom: 40px;
             }
         </style>
-        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/bootstrap-responsive.css">
         <link rel="stylesheet" href="css/prettify.css">
+        <link rel="stylesheet" href="css/main.css">
 
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script src="js/vendor/prettify.js"></script>
@@ -39,45 +39,105 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#">Acorn</a>
-                    <div class="nav-collapse collapse">
+                    <a class="brand" href="/">Acorn</a>
+                    <div class="nav-collapse collapse pull-right">
                         <ul class="nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#contact">Contact</a></li>
+                            <li class="active"><a href="/">Home</a></li>
+                            <li><a href="login.php" target="_blank">Login Page</a></li>
+                            <li><a href="users.php" target="_blank">Users Page</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
         </div>
-
         <div class="container">
-            <div class="span8">
-                <h2>Web Application Security Introduction</h2>
-                <p>Introduction Text</p>
-                <h3>OWASP</h3>
-                <p>The OWASP Foundation came online on December 1st 2001 it was established as a not-for-profit charitable organization in the United States on April 21, 2004 to ensure the ongoing availability and support for our work at OWASP. OWASP is an international organization and the OWASP Foundation supports OWASP efforts around the world. OWASP is an open community dedicated to enabling organizations to conceive, develop, acquire, operate, and maintain applications that can be trusted. All of the OWASP tools, documents, forums, and chapters are free and open to anyone interested in improving application security. We advocate approaching application security as a people, process, and technology problem because the most effective approaches to application security include improvements in all of these areas. We can be found at www.owasp.org.</p>
-                <p>OWASP is a new kind of organization. Our freedom from commercial pressures allows us to provide unbiased, practical, cost-effective information about application security. OWASP is not affiliated with any technology company, although we support the informed use of commercial security technology. Similar to many open-source software projects, OWASP produces many types of materials in a collaborative, open way. The OWASP Foundation is a not-for-profit entity that ensures the project's long-term success.</p>
-                <h2>Injection</h2>
-                <h3>Theory</h3>
-                <h3>Detection</h3>
-                <h3>Application</h3>
-                <pre class="prettyprint language-css">
-class Foo {
-    public int Bar { get; set; }
-}
-                </pre>
-                <h3>Fix</h3>
-                <h2>Session Management</h2>
-                <h3>Theory</h3>
-                <h3>Detection</h3>
-                <h3>Application</h3>
-                <h3>Fix</h3>
-            </div>
-            <div class="span3 pull-right">
-                <a href="#OWASP">OWASP</a>
-            </div>
-        </div>
+            <div class="row">
+                <div class="span8">
+                    <h2>Web Application Security Introduction</h2>
+                    <p>This application has been designed to teach the following:</p>
+                    <ul>
+                        <li>a brief intro for a few of the most common web application vulnerabilities</li>
+                        <li>the theory behind the vulnerabilities</li>
+                        <li>how to identify vulnerabilities</li>
+                        <li>how to fix the vulnerabilities identified</li>
+                        <li>how to detect exploited vulnerabilities</li>
+                    </ul>
+                    <p>The application is built with a number of php files, and a sqlite database.  It also has a couple of scripts to facilitate a few functions.  Please look around the folder to get a feel for what it has to offer.</p>
+                    <h3 id="OWASP">OWASP</h3>
+                    <p>The OWASP Foundation came online on December 1st 2001 it was established as a not-for-profit charitable organization in the United States on April 21, 2004 to ensure the ongoing availability and support for our work at OWASP. OWASP is an international organization and the OWASP Foundation supports OWASP efforts around the world. OWASP is an open community dedicated to enabling organizations to conceive, develop, acquire, operate, and maintain applications that can be trusted. All of the OWASP tools, documents, forums, and chapters are free and open to anyone interested in improving application security. We advocate approaching application security as a people, process, and technology problem because the most effective approaches to application security include improvements in all of these areas. We can be found at www.owasp.org.</p>
+                    <p>OWASP is a new kind of organization. Our freedom from commercial pressures allows us to provide unbiased, practical, cost-effective information about application security. OWASP is not affiliated with any technology company, although we support the informed use of commercial security technology. Similar to many open-source software projects, OWASP produces many types of materials in a collaborative, open way. The OWASP Foundation is a not-for-profit entity that ensures the project's long-term success.</p>
+                    <p><a href="https://www.owasp.org/index.php/Main_Page" target="_blank">OWASP Home Page</a></p>
+                    <p><a href="http://owasptop10.googlecode.com/files/OWASP%20Top%2010%20-%202013%20-%20RC1.pdf">OWASP Top 10 - 2013 RC</a></p>
+
+                    <h2 id="Injection">Injection</h2>
+                    <h3 id="Injection-Theory">Theory</h3>
+                    <p>Injection can occur when the data entered by a user is trusted in the application, and the developer has not taken steps to correctly validate the data input.<p>
+                    <p>A SQL injection attack consists of insertion or "injection" of a SQL query via the input data from the client to the application. A successful SQL injection exploit can read sensitive data from the database, modify database data (Insert/Update/Delete), execute administration operations on the database (such as shutdown the DBMS), recover the content of a given file present on the DBMS file system and in some cases issue commands to the operating system. SQL injection attacks are a type of injection attack, in which SQL commands are injected into data-plane input in order to effect the execution of predefined SQL commands.</p>
+                    <p>SQL injection attacks allow attackers to spoof identity, tamper with existing data, cause repudiation issues such as voiding transactions or changing balances, allow the complete disclosure of all data on the system, destroy the data or make it otherwise unavailable, and become administrators of the database server.</p>
+                    <p>The severity of SQL Injection attacks is limited by the attacker’s skill and imagination, and to a lesser extent, defense in depth countermeasures, such as low privilege connections to the database server and so on. In general, consider SQL Injection a high impact severity.</p>
+                    <p><a href="https://www.owasp.org/index.php/SQL_Injection" target="_blank">OWASP - SQL Injection</a></p>
+                    <h3 id="Injection-Identification">Identification</h3>
+                    <pre class="prettyprint language-php">
+$usr = ($_POST['username']);
+$pas = ($_POST['password']);
+try
+{
+    $results = $db->query("SELECT * FROM users WHERE username='$usr' AND password='$pas'");
+}</pre>
+                    <h3 id="Injection-Exploit">Exploit</h3>
+                    <p>So now we now how SQL Injection works, let's try it.  This <a href="users.php" target="_blank">link</a> (http://localhost:8000/users.php) will take you to a protected space, and will only allow authenticated users to enter.  Try going there now, without logging in.</p>
+                    <p>You should have been redirected to the login page.  Now let's try to login using the username: "user", and the password: "test".</p>
+                    <h4>Now for the fun part!</h4>
+                    <p>Let's "hack" into the application taking advantage of the fact that the login page is vulnerable to SQL Injection.</p>
+                    <p>Try putting the following in the user field:</p>
+                    <pre class="prettyprint language-sql">
+x' OR 1=1; --</pre>
+                    <p>This works because the new sql query looks like this:</p>
+                    <pre class="prettyprint language-sql">
+SELECT * FROM users WHERE username='x' OR 1=1; --' AND password='';</pre>
+                    <p>The "--" in SQL means the rest of the line is a comment.  So it is basically saying, "Select all from users where username is x or 1=1".  One will always equal one, so this works.</p>
+                    <h3 id="Injection-Fix">Fix</h3>
+                    <h4>Escaping Potentially dangerous text</h4>
+                    <pre class="prettyprint language-php">
+$usr = ($_POST['username']);
+$pas = ($_POST['password']);
+$usr_clean = sqlite_escape_string($usr);
+try
+{
+    $results = $db->query("SELECT * FROM users WHERE username='$usr_clean' AND password='$pas'");
+}</pre>
+                    <p>What is the problem with this "fix"?</p>
+                    <h4>Parameterize input</h4>
+                    <pre class="prettyprint language-php">
+$usr = ($_POST['username']);
+$pas = ($_POST['password']);
+$sql = "SELECT * FROM users WHERE username=':username' AND password=':password'";
+$prep = $db->prepare($sql);
+$prep->execute(array(':username' => $usr, ':password' => $pas));
+$results = $prep->fetchAll();</pre>
+                    <h2 id="Session-Management">Session Management</h2>
+                    <h3 id="Session-Theory">Theory</h3>
+                    <h3 id="Session-Identification">Identification</h3>
+                    <h3 id="Session-Exploit">Exploit</h3>
+                    <h3 id="Session-Fix">Fix</h3>
+                </div>
+                <div class="span3 pull-right">
+                    <ul class="nav nav-tabs nav-stacked">
+                        <li><a href="#OWASP">OWASP</a></li>
+                        <li><a href="#Injection">Injection</a></li>
+                        <li><a href="#Injection-Theory">Injection - Theory</a></li>
+                        <li><a href="#Injection-Identification">Injection - Identification</a></li>
+                        <li><a href="#Injection-Exploit">Injection - Exploit</a></li>
+                        <li><a href="#Injection-Fix">Injection - Fix</a></li>
+                        <li><a href="#Session-Management">Session Management</a></li>
+                        <li><a href="#Session-Theory">Session Management - Theory</a></li>
+                        <li><a href="#Session-Identification">Session Management - Identification</a></li>
+                        <li><a href="#Session-Exploit">Session Management - Exploit</a></li>
+                        <li><a href="#Session-Fix">Session Management - Fix</a></li>
+                    </ul>
+                </div>
+            </div> <!-- /row -->
+        </div> <!-- /container -->
         <div class="container">
             <hr>
 
@@ -86,9 +146,7 @@ class Foo {
             </footer>
 
         </div> <!-- /container -->
-
         <script src="js/vendor/bootstrap.min.js"></script>
-
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
     </body>
