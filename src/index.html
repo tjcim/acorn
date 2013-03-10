@@ -24,7 +24,7 @@
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script src="js/vendor/prettify.js"></script>
     </head>
-    <body onload="prettyPrint()">
+    <body onload="prettyPrint();">
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
@@ -77,7 +77,7 @@
                     <p>The severity of SQL Injection attacks is limited by the attacker’s skill and imagination, and to a lesser extent, defense in depth countermeasures, such as low privilege connections to the database server and so on. In general, consider SQL Injection a high impact severity.</p>
                     <p><a href="https://www.owasp.org/index.php/SQL_Injection" target="_blank">OWASP - SQL Injection</a></p>
                     <h3 id="Injection-Identification">Identification</h3>
-                    <pre class="prettyprint language-php">
+                    <pre class="prettyprint lang-php">
 $usr = ($_POST['username']);
 $pas = ($_POST['password']);
 try
@@ -90,15 +90,15 @@ try
                     <h4>Now for the fun part!</h4>
                     <p>Let's "hack" into the application taking advantage of the fact that the login page is vulnerable to SQL Injection.</p>
                     <p>Try putting the following in the user field:</p>
-                    <pre class="prettyprint language-sql">
+                    <pre class="prettyprint lang-sql">
 x' OR 1=1; --</pre>
                     <p>This works because the new sql query looks like this:</p>
-                    <pre class="prettyprint language-sql">
+                    <pre class="prettyprint lang-sql">
 SELECT * FROM users WHERE username='x' OR 1=1; --' AND password='';</pre>
                     <p>The "--" in SQL means the rest of the line is a comment.  So it is basically saying, "Select all from users where username is x or 1=1".  One will always equal one, so this works.</p>
                     <h3 id="Injection-Fix">Fix</h3>
                     <h4>Escaping Potentially dangerous text</h4>
-                    <pre class="prettyprint language-php">
+                    <pre class="prettyprint lang-php">
 $usr = ($_POST['username']);
 $pas = ($_POST['password']);
 $usr_clean = sqlite_escape_string($usr);
@@ -108,7 +108,7 @@ try
 }</pre>
                     <p>What is the problem with this "fix"?</p>
                     <h4>Parameterize input</h4>
-                    <pre class="prettyprint language-php">
+                    <pre class="prettyprint lang-php">
 $usr = ($_POST['username']);
 $pas = ($_POST['password']);
 $sql = "SELECT * FROM users WHERE username=':username' AND password=':password'";
