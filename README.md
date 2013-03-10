@@ -2,6 +2,11 @@
 The latest version can be found here:  https://github.com/tjcim/acorn.
 
 ## Windows
+* Click on the ZIP button to download the repository as a zip file.
+* Extract the contents
+* Go into acorn-master/bin
+* Double Click on the 'Start_Acorn.bat'
+
 The package is bundled with a redistributable version of PHP for Windows.  Simply unzip the package, change directory to the scripts directory and run start.bat.  This will start a development webserver accessed by going to http://localhost:8000.
 
 ## Linux
