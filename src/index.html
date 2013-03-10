@@ -116,10 +116,13 @@ try
                     <pre class="prettyprint lang-php">
 $usr = ($_POST['username']);
 $pas = ($_POST['password']);
-$sql = "SELECT * FROM users WHERE username=':username' AND password=':password'";
-$prep = $db->prepare($sql);
-$prep->execute(array(':username' => $usr, ':password' => $pas));
-$results = $prep->fetchAll();</pre>
+$sql = "SELECT * FROM users WHERE username=:username AND password=:password";
+$stmt = $db->prepare($sql);
+$stmt->bindParam(':username', $usr, PDO::PARAM_STR);
+$stmt->bindParam(':password', $pas, PDO::PARAM_STR);
+$found = $stmt->execute();
+$results = $stmt->fetchAll();</pre>
+                    <p>You can test out trying to do a sql injection attack on this code, by going to <a href="login-better.php">login-better.php</a></p>
                     <h2 id="Session-Management">Session Management</h2>
                     <p>HTTP is a stateless protocol meaning that it doesn't natively remember who a visitor is, or the settings they use.  To get around this, developers created what is known as sessions.  Sessions store information about the visitor, so when a user goes to another page, or returns to the website, the experience can be customized to them.  A good illustration of this, is when you go to a global company and it asks you the country you are from.  The next time you visit, you don't need to specify the country because the server "remembers" you.  This is done through sessions.</p>
                     <p>The vulnerability in sessions is that not only will it save your settings, but it can also saves information on whether you have logged in, what your username is, and your permission settings.  Making a session a virtual key.</p>
