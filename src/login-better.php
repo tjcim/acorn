@@ -53,7 +53,7 @@
                                 <h1>Welcome to the app!</h1>
                                 <p>Login below in order to access all the great things we have!</p>
                             </div>
-                            <form action="verify.php" method="post" class="form-horizontal">
+                            <form action="verify-better.php" method="post" class="form-horizontal">
                                 <div class="control-group">
                                     <label class="control-label" for="username">Username</label>
                                     <div class="controls">

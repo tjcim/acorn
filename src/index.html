@@ -43,8 +43,8 @@
                     <div class="nav-collapse collapse pull-right">
                         <ul class="nav">
                             <li class="active"><a href="/">Home</a></li>
-                            <li><a href="login.php" target="_blank">Login Page</a></li>
-                            <li><a href="users.php" target="_blank">Users Page</a></li>
+                            <li><a href="login.php">Login Page</a></li>
+                            <li><a href="users.php">Users Page</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -85,17 +85,20 @@ try
     $results = $db->query("SELECT * FROM users WHERE username='$usr' AND password='$pas'");
 }</pre>
                     <h3 id="Injection-Exploit">Exploit</h3>
-                    <p>So now we now how SQL Injection works, let's try it.  This <a href="users.php" target="_blank">link</a> (http://localhost:8000/users.php) will take you to a protected space, and will only allow authenticated users to enter.  Try going there now, without logging in.</p>
-                    <p>You should have been redirected to the login page.  Now let's try to login using the username: "user", and the password: "test".</p>
+                    <p>So now we now how SQL Injection works, let's try it.  This <a href="users.php" target="_blank">link</a> (/users.php) will take you to a protected space, and will only allow authenticated users to enter.  Try going there now without logging in.</p>
+                    <p>You should have been redirected to the login page.  Now let's try to login using the username: "user", and the password: "test".  You should now see the protected space.  Click on the logout <a href="logout.php" target="_blank">link</a>, and then try going back to the <a href="users.php" target="_blank">users</a> page to make sure that you are completely logged out.</p>
                     <h4>Now for the fun part!</h4>
                     <p>Let's "hack" into the application taking advantage of the fact that the login page is vulnerable to SQL Injection.</p>
-                    <p>Try putting the following in the user field:</p>
+                    <p>Try putting the following in the user field and leave the password blank:</p>
                     <pre class="prettyprint lang-sql">
 x' OR 1=1; --</pre>
                     <p>This works because the new sql query looks like this:</p>
                     <pre class="prettyprint lang-sql">
 SELECT * FROM users WHERE username='x' OR 1=1; --' AND password='';</pre>
                     <p>The "--" in SQL means the rest of the line is a comment.  So it is basically saying, "Select all from users where username is x or 1=1".  One will always equal one, so this works.</p>
+                    <div class="alert alert-info">
+                        <p>What other sql commands can you enter?</p>
+                    </div>
                     <h3 id="Injection-Fix">Fix</h3>
                     <h4>Escaping Potentially dangerous text</h4>
                     <pre class="prettyprint lang-php">
@@ -106,7 +109,9 @@ try
 {
     $results = $db->query("SELECT * FROM users WHERE username='$usr_clean' AND password='$pas'");
 }</pre>
-                    <p>What is the problem with this "fix"?</p>
+                    <div class="alert alert-info">
+                        <p>What is the problem with this "fix"?</p>
+                    </div>
                     <h4>Parameterize input</h4>
                     <pre class="prettyprint lang-php">
 $usr = ($_POST['username']);
@@ -116,10 +121,30 @@ $prep = $db->prepare($sql);
 $prep->execute(array(':username' => $usr, ':password' => $pas));
 $results = $prep->fetchAll();</pre>
                     <h2 id="Session-Management">Session Management</h2>
+                    <p>HTTP is a stateless protocol meaning that it doesn't natively remember who a visitor is, or the settings they use.  To get around this, developers created what is known as sessions.  Sessions store information about the visitor, so when a user goes to another page, or returns to the website, the experience can be customized to them.  A good illustration of this, is when you go to a global company and it asks you the country you are from.  The next time you visit, you don't need to specify the country because the server "remembers" you.  This is done through sessions.</p>
+                    <p>The vulnerability in sessions is that not only will it save your settings, but it can also saves information on whether you have logged in, what your username is, and your permission settings.  Making a session a virtual key.</p>
                     <h3 id="Session-Theory">Theory</h3>
+                    <p>For an attacker to succeed they need to present the server with a valid session id.  This can be obtained through cookies, using statistically probability to guess an id, sniffing the url, etc...</p>
+                    <p>Once the attacker has the session id, they can simply present that id to the server, and often times they will have the same access as the victim.</p>
                     <h3 id="Session-Identification">Identification</h3>
+                    <p>Here are things to look for inorder to identify Session Attacks:</p>
+                    <ul>
+                        <li>Look for a large number of sequential requests using different session IDs</li>
+                        <li>Bind the Session ID to the IP address of the client.  If the app detects a difference, it can react appropriately by terminating the session</li>
+                        <li>Log the complete session life cycle: Creation, Use and Destruction</li>
+                    </ul>
                     <h3 id="Session-Exploit">Exploit</h3>
+                    <p>I wanted to make sure you got the experience of exploiting session ids without installing any additional application.  So for this app, if you notice that when you log in the Session Id is passed in the url.</p>
+                    <img src="img/session-id-url.png"></img>
+                    <p></p>
+                    <p>To exploit this vulnerability, you can simulate a MiTM attack by copying the logged in url to another browser and using it to access the protected space.</p>
+                    <p>You can also re-use the session id.  Simply login with valid credentials, copy the url, then logout.  Try going back to the protected space without logging in to verify that you no longer have a session.  Now use the session you copied to access the protected space without logging in.</p>
                     <h3 id="Session-Fix">Fix</h3>
+                    <ul>
+                        <li>Look for unencrypted sessions in URLs, cookies, hidden fields.</li>
+                        <li>If cookies are used, make sure they use the "Secure" attribute.  This prevents the cookie from being transmitted through an clear channel."</li>
+                        <li>Use session expiration to expire the session after a certain time period.</li>
+                    </ul>
                 </div>
                 <div class="span3 pull-right">
                     <ul class="nav nav-tabs nav-stacked">
