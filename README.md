@@ -5,9 +5,9 @@ The latest version can be found here:  https://github.com/tjcim/acorn.
 * Click on the ZIP button to download the repository as a zip file.
 * Extract the contents
 * Go into acorn-master/bin
-* Double Click on the 'Start_Acorn.bat'
-
-The package is bundled with a redistributable version of PHP for Windows.  Simply unzip the package, change directory to the scripts directory and run start.bat.  This will start a development webserver accessed by going to http://localhost:8000.
+* Double Click on the 'Start-Acorn.bat'
+  * This should open a command prompt window, and start a local development php webserver.
+* Browse to http://localhost:8000
 
 ## Linux
 Use php --version to check your current version of php.  This application has been tested on PHP 5.4.  Use your package manager to install php if needed.  Edit php.ini to include the sqlite libraries.  Go to the src directory and run php -S localhost:8000.  You go to http://localhost:8000/phpinfo to check that the sqlite libraries have been loaded.

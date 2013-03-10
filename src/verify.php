@@ -39,7 +39,7 @@ if(isset($_POST['submit'])){
     {
          $msg = $e->getMessage();
     }
-    header("Location: login_page.php?msg=" . urlencode($msg));
+    header("Location: login.php");
     exit;
 
 }else{    //If the form button wasn't submitted go to the index page, or login page 
