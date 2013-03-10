@@ -76,7 +76,13 @@
                     <p>SQL injection attacks allow attackers to spoof identity, tamper with existing data, cause repudiation issues such as voiding transactions or changing balances, allow the complete disclosure of all data on the system, destroy the data or make it otherwise unavailable, and become administrators of the database server.</p>
                     <p>The severity of SQL Injection attacks is limited by the attacker’s skill and imagination, and to a lesser extent, defense in depth countermeasures, such as low privilege connections to the database server and so on. In general, consider SQL Injection a high impact severity.</p>
                     <p><a href="https://www.owasp.org/index.php/SQL_Injection" target="_blank">OWASP - SQL Injection</a></p>
+                    <p>One of the reasons it is so common, is that you have example sites like this http://www.howtodothings.com/computers-internet/how-to-make-a-login-system-for-your-website, with bad code, and high rankings in google.<p>
                     <h3 id="Injection-Identification">Identification</h3>
+                    <h4>Logs</h4>
+                    <p>Look for 500 error codes and examine the types of requests coming in, this will show you if someone is trying to map out a sql injection vulnerability.</p>
+                    <p>Also watch your database logs for unusual activity, such as a request for a table that doesn't exist.</p>
+                    <h4>Code</h4>
+                    <p>Look for cases where user input is trusted (not validated for the proper type/characters/length/etc..).  Here is the code from the login page.  You can see that the input is not validated and is used to directly configure the sql statement.</p>
                     <pre class="prettyprint lang-php">
 $usr = ($_POST['username']);
 $pas = ($_POST['password']);
@@ -133,7 +139,7 @@ $results = $stmt->fetchAll();</pre>
                     <p>Here are things to look for inorder to identify Session Attacks:</p>
                     <ul>
                         <li>Look for a large number of sequential requests using different session IDs</li>
-                        <li>Bind the Session ID to the IP address of the client.  If the app detects a difference, it can react appropriately by terminating the session</li>
+                        <li>Bind the Session ID to the IP address of the client.  Now you can detect changes in the IP, for a session.</li>
                         <li>Log the complete session life cycle: Creation, Use and Destruction</li>
                     </ul>
                     <h3 id="Session-Exploit">Exploit</h3>
@@ -153,15 +159,15 @@ $results = $stmt->fetchAll();</pre>
                     <ul class="nav nav-tabs nav-stacked">
                         <li><a href="#OWASP">OWASP</a></li>
                         <li><a href="#Injection">Injection</a></li>
-                        <li><a href="#Injection-Theory">Injection - Theory</a></li>
-                        <li><a href="#Injection-Identification">Injection - Identification</a></li>
-                        <li><a href="#Injection-Exploit">Injection - Exploit</a></li>
-                        <li><a href="#Injection-Fix">Injection - Fix</a></li>
+                        <li><a class="sub" href="#Injection-Theory">Theory</a></li>
+                        <li><a class="sub" href="#Injection-Identification">Identification</a></li>
+                        <li><a class="sub" href="#Injection-Exploit">Exploit</a></li>
+                        <li><a class="sub" href="#Injection-Fix">Fix</a></li>
                         <li><a href="#Session-Management">Session Management</a></li>
-                        <li><a href="#Session-Theory">Session Management - Theory</a></li>
-                        <li><a href="#Session-Identification">Session Management - Identification</a></li>
-                        <li><a href="#Session-Exploit">Session Management - Exploit</a></li>
-                        <li><a href="#Session-Fix">Session Management - Fix</a></li>
+                        <li><a class="sub" href="#Session-Theory">Theory</a></li>
+                        <li><a class="sub" href="#Session-Identification">Identification</a></li>
+                        <li><a class="sub" href="#Session-Exploit">Exploit</a></li>
+                        <li><a class="sub" href="#Session-Fix">Fix</a></li>
                     </ul>
                 </div>
             </div> <!-- /row -->

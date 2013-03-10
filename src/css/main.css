@@ -7,6 +7,9 @@
 .tmargin {
     margin-top: 10px;
 }
+.nav-tabs.nav-stacked > li > a.sub {
+    padding-left: 30px;
+}
 
 
 

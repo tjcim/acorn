@@ -24,7 +24,7 @@ I feel it is important to understand how to secure applications and to identify 
 ## Why php/sqlite/bad code/etc...
 The goal was to make an application that could teach the fundamentals without requiring the installation of any additional applications.  This makes the project very portable and can be experienced in more environments.
 
-PHP: is one of the most common web application languages in use today.  Source:  http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html.  PHP does not need to be compiled and therefore can be edited/modified with a simple text editor.  Also, cross-platform compatible.  I am a linux user, but understand that Windows is much more popular.  The same PHP code can run in both environments without change.
+PHP: is one of the most common web application languages in use today.  Source:  http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html.  PHP does not need to be compiled and therefore can be edited/modified with a simple text editor.  Also, cross-platform compatible.  I am a linux user, but I understand that Windows is much more popular.  The same PHP code can run in both environments without change.
 
 SQLite:  This is simply a decision based on the use of the app.  SQLite can be run without installing or starting a server, but maintains much of the same functionality of an installed DB (MySQL, MSSQL, etc.)
 
